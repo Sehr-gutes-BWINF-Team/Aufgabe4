@@ -2,18 +2,12 @@ package main
 
 import (
 	"bufio"
-	"bwinf22/lib"
+	"bwinf22/simulator"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
-
-type order struct {
-	entry int
-	time  int
-}
 
 func main() {
 	readFile, err := os.Open("resources/fahrradwerkstatt0.txt")
@@ -22,7 +16,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	var orders []order
+	var orders []simulator.Order
 	bScanner := bufio.NewScanner(readFile)
 	bScanner.Split(bufio.ScanLines)
 	line := ""
@@ -38,14 +32,10 @@ func main() {
 
 		entry, _ := strconv.Atoi(orderData[0])
 		time, _ := strconv.Atoi(orderData[1])
-		orders = append(orders, order{entry, time})
+		orders = append(orders, simulator.Order{Entry: entry, Time: time, Completion: time})
 	}
 
-	sort.Slice(orders, func(i, j int) bool {
-		return orders[i].time < orders[j].time
-	})
-
-	lib.Simulate(len(orders))
+	simulator.Simulate(len(orders), orders)
 
 	err = readFile.Close()
 	if err != nil {
