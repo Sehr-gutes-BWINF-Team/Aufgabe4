@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	readFile, err := os.Open("resources/fahrradwerkstatt0.txt")
+	readFile, err := os.Open("resources/fahrradwerkstatt1.txt")
 
 	if err != nil {
 		fmt.Println(err)
@@ -19,10 +19,9 @@ func main() {
 	var orders []simulator.Order
 	bScanner := bufio.NewScanner(readFile)
 	bScanner.Split(bufio.ScanLines)
-	line := ""
 
 	for bScanner.Scan() {
-		line = bScanner.Text()
+		line := bScanner.Text()
 
 		orderData := strings.Split(line, " ")
 
