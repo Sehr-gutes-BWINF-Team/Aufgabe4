@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	readFile, err := os.Open("resources/fahrradwerkstatt0.txt")
 
 	if err != nil {
