@@ -11,12 +11,11 @@ func Simulate(simulationLength int, orders []Order) {
 	var currentOrders []Order
 	var finishedOrders []int
 	i, overallTime, workTime := 0, 0, 0
-	l := 0
 	for i < simulationLength {
 		currentOrders = append(currentOrders, getNewOrders(overallTime, orders)...)
 		var currentOrder *Order
 
-		if len(currentOrders) != 0 && workTime <= 8 {
+		if len(currentOrders) != 0 && workTime <= 7 {
 			currentOrder = &currentOrders[0]
 			currentOrder.workOn()
 
@@ -30,16 +29,17 @@ func Simulate(simulationLength int, orders []Order) {
 
 		workTime++
 
-		if workTime == 24 {
+		if workTime == 23 {
 			workTime = 0
 		}
 
 		overallTime++
 	}
 
-	log.Println(overallTime)
-	log.Println(l)
-	log.Println("Average", CalculateAverage(finishedOrders), "minutes.")
+	average := CalculateAverage(finishedOrders)
+	log.Println("Average:", average, "minutes.")
+	log.Println("Which are equal to", average/60, "hours.")
+	log.Println("Or", average/60/24, "days.")
 	log.Println("Stopped simulation!")
 }
 

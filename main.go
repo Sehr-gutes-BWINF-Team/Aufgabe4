@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	readFile, err := os.Open("resources/fahrradwerkstatt1.txt")
+	readFile, err := os.Open("resources/fahrradwerkstatt0.txt")
 
 	if err != nil {
 		fmt.Println(err)
@@ -22,7 +22,6 @@ func main() {
 
 	for bScanner.Scan() {
 		line := bScanner.Text()
-
 		orderData := strings.Split(line, " ")
 
 		if len(orderData) != 2 {
