@@ -21,7 +21,6 @@ func Simulate(simulationLength int, orders []Order) {
 			currentOrder.WorkOn()
 
 			if currentOrder.IsCompleted() {
-				log.Println(currentOrder)
 				waitingTime := overallTime - currentOrder.Entry
 				finishedOrders = append(finishedOrders, waitingTime)
 				currentOrders = RemoveOrder(*currentOrder, currentOrders)
