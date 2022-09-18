@@ -16,13 +16,15 @@ func Simulate(simulationLength int, orders []Order) {
 		var currentOrder *Order
 
 		if len(currentOrders) != 0 && workTime <= 7 {
-			currentOrder = &currentOrders[0]
-			currentOrder.workOn()
+			currentOrderIndex, _ := GetIndexByOrderId(LowestTimeOrder(currentOrders).Id, currentOrders)
+			currentOrder = &currentOrders[currentOrderIndex]
+			currentOrder.WorkOn()
 
-			if currentOrder.isCompleted() {
+			if currentOrder.IsCompleted() {
+				log.Println(currentOrder)
 				waitingTime := overallTime - currentOrder.Entry
 				finishedOrders = append(finishedOrders, waitingTime)
-				currentOrders = Remove(currentOrders, 0)
+				currentOrders = RemoveOrder(*currentOrder, currentOrders)
 				i++
 			}
 		}

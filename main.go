@@ -10,8 +10,12 @@ import (
 )
 
 func main() {
+	var orders = getOrdersFromFile("resources/fahrradwerkstatt0.txt")
+	simulator.Simulate(len(orders), orders)
+}
 
-	readFile, err := os.Open("resources/fahrradwerkstatt0.txt")
+func getOrdersFromFile(filePath string) []simulator.Order {
+	readFile, err := os.Open(filePath)
 
 	if err != nil {
 		fmt.Println(err)
@@ -20,6 +24,7 @@ func main() {
 	var orders []simulator.Order
 	bScanner := bufio.NewScanner(readFile)
 	bScanner.Split(bufio.ScanLines)
+	var id int
 
 	for bScanner.Scan() {
 		line := bScanner.Text()
@@ -31,13 +36,14 @@ func main() {
 
 		entry, _ := strconv.Atoi(orderData[0])
 		time, _ := strconv.Atoi(orderData[1])
-		orders = append(orders, simulator.Order{Entry: entry, Time: time, Completion: time})
+		orders = append(orders, simulator.Order{Id: id, Entry: entry, Time: time, Completion: time})
+		id++
 	}
-
-	simulator.Simulate(len(orders), orders)
 
 	err = readFile.Close()
 	if err != nil {
-		return
+		return nil
 	}
+
+	return orders
 }
