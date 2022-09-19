@@ -31,11 +31,6 @@ func GetIndexByOrderId(orderId int, orders []Order) (int, error) {
 	return -1, errors.New("not found")
 }
 
-func GetOrderById(orderId int, orders []Order) (Order, error) {
-	index, err := GetIndexByOrderId(orderId, orders)
-	return orders[index], err
-}
-
 func LowestTimeOrder(orders []Order) Order {
 	var minOrder = orders[0]
 	for _, value := range orders {
