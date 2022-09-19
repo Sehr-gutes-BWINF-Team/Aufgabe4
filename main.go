@@ -11,6 +11,7 @@ import (
 
 func main() {
 	var orders = getOrdersFromFile("resources/fahrradwerkstatt0.txt")
+	simulator.FirstSimulation(orders)
 	simulator.SecondSimulation(orders)
 }
 
@@ -36,7 +37,7 @@ func getOrdersFromFile(filePath string) []simulator.Order {
 
 		entry, _ := strconv.Atoi(orderData[0])
 		time, _ := strconv.Atoi(orderData[1])
-		orders = append(orders, simulator.Order{Id: id, Entry: entry, Time: time, Completion: time})
+		orders = append(orders, simulator.Order{ID: id, Entry: entry, Time: time, Completion: time})
 		id++
 	}
 

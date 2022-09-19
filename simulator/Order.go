@@ -1,7 +1,7 @@
 package simulator
 
 type Order struct {
-	Id         int
+	ID         int
 	Entry      int
 	Time       int
 	Completion int

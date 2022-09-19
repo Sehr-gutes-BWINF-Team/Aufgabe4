@@ -14,7 +14,7 @@ func FirstSimulation(orders []Order) {
 
 func SecondSimulation(orders []Order) {
 	Simulate(len(orders), orders, func(currentOrder *Order, currentOrders []Order) *Order {
-		currentOrderIndex, _ := GetIndexByOrderId(LowestTimeOrder(currentOrders).Id, currentOrders)
+		currentOrderIndex, _ := GetIndexByOrderID(LowestTimeOrder(currentOrders).ID, currentOrders)
 		currentOrder = &currentOrders[currentOrderIndex]
 		currentOrder.WorkOn()
 		return currentOrder

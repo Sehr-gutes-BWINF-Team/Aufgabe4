@@ -18,13 +18,13 @@ func RemoveByIndex(s int, slice []Order) []Order {
 }
 
 func RemoveOrder(order Order, orders []Order) []Order {
-	index, _ := GetIndexByOrderId(order.Id, orders)
+	index, _ := GetIndexByOrderID(order.ID, orders)
 	return RemoveByIndex(index, orders)
 }
 
-func GetIndexByOrderId(orderId int, orders []Order) (int, error) {
+func GetIndexByOrderID(orderId int, orders []Order) (int, error) {
 	for i := range orders {
-		if orders[i].Id == orderId {
+		if orders[i].ID == orderId {
 			return i, nil
 		}
 	}
