@@ -4,8 +4,25 @@ import (
 	"log"
 )
 
+func FirstSimulation(orders []Order) {
+	Simulate(len(orders), orders, func(currentOrder *Order, currentOrders []Order) *Order {
+		currentOrder = &currentOrders[0]
+		currentOrder.WorkOn()
+		return currentOrder
+	})
+}
+
+func SecondSimulation(orders []Order) {
+	Simulate(len(orders), orders, func(currentOrder *Order, currentOrders []Order) *Order {
+		currentOrderIndex, _ := GetIndexByOrderId(LowestTimeOrder(currentOrders).Id, currentOrders)
+		currentOrder = &currentOrders[currentOrderIndex]
+		currentOrder.WorkOn()
+		return currentOrder
+	})
+}
+
 // Simulate simulates the bike repair shop scenario.
-func Simulate(simulationLength int, orders []Order) {
+func Simulate(simulationLength int, orders []Order, simulation func(currentOrder *Order, currentOrders []Order) *Order) {
 	log.Println("Started simulation!")
 
 	var currentOrders []Order
@@ -16,9 +33,7 @@ func Simulate(simulationLength int, orders []Order) {
 		var currentOrder *Order
 
 		if len(currentOrders) != 0 && workTime <= 7 {
-			currentOrderIndex, _ := GetIndexByOrderId(LowestTimeOrder(currentOrders).Id, currentOrders)
-			currentOrder = &currentOrders[currentOrderIndex]
-			currentOrder.WorkOn()
+			currentOrder = simulation(currentOrder, currentOrders)
 
 			if currentOrder.IsCompleted() {
 				waitingTime := overallTime - currentOrder.Entry

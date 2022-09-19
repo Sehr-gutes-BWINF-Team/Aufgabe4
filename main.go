@@ -11,7 +11,7 @@ import (
 
 func main() {
 	var orders = getOrdersFromFile("resources/fahrradwerkstatt0.txt")
-	simulator.Simulate(len(orders), orders)
+	simulator.SecondSimulation(orders)
 }
 
 func getOrdersFromFile(filePath string) []simulator.Order {
