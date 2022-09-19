@@ -27,8 +27,8 @@ func Simulate(simulationLength int, orders []Order, simulation func(currentOrder
 
 	var currentOrders []Order
 	var finishedOrders []int
-	i, overallTime, workTime := 0, 0, 0
-	for i < simulationLength {
+	completedOrders, overallTime, workTime := 0, 0, 0
+	for completedOrders < simulationLength {
 		currentOrders = append(currentOrders, getNewOrders(overallTime, orders)...)
 		var currentOrder *Order
 
@@ -39,7 +39,7 @@ func Simulate(simulationLength int, orders []Order, simulation func(currentOrder
 				waitingTime := overallTime - currentOrder.Entry
 				finishedOrders = append(finishedOrders, waitingTime)
 				currentOrders = RemoveOrder(*currentOrder, currentOrders)
-				i++
+				completedOrders++
 			}
 		}
 
