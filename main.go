@@ -10,9 +10,11 @@ import (
 )
 
 func main() {
-	var orders = getOrdersFromFile("resources/fahrradwerkstatt0.txt")
+	var orders = getOrdersFromFile("resources/fahrradwerkstatt4.txt")
 	simulator.FirstSimulation(orders)
 	simulator.SecondSimulation(orders)
+	//simulator.Test(len(orders), orders)
+	simulator.ThirdSimulation(orders)
 }
 
 func getOrdersFromFile(filePath string) []simulator.Order {
