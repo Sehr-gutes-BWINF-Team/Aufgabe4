@@ -1,20 +1,20 @@
 package simulator
 
 type Order struct {
-	ID         int
-	Entry      int
-	Time       int
-	Completion int
+	ID                      int
+	EntryTime               int
+	RequiredTime            int
+	TimeLeftUntilCompletion int
 }
 
 func (o *Order) GetCompletion() int {
-	return o.Completion
+	return o.TimeLeftUntilCompletion
 }
 
 func (o *Order) IsCompleted() bool {
-	return o.Completion == 0
+	return o.TimeLeftUntilCompletion == 0
 }
 
 func (o *Order) WorkOn() {
-	o.Completion--
+	o.TimeLeftUntilCompletion--
 }

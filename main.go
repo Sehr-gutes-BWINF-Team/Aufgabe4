@@ -4,17 +4,19 @@ import (
 	"bufio"
 	"bwinf22/simulator"
 	"fmt"
+	"math/rand"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
+	rand.Seed(time.Now().Unix())
 	var orders = getOrdersFromFile("resources/fahrradwerkstatt4.txt")
-	simulator.FirstSimulation(orders)
-	simulator.SecondSimulation(orders)
-	//simulator.Test(len(orders), orders)
-	simulator.ThirdSimulation(orders)
+	simulator.FirstInFirstOut(orders)
+	simulator.CompleteThenShortest(orders)
+	simulator.RoundRobin(orders)
 }
 
 func getOrdersFromFile(filePath string) []simulator.Order {
@@ -39,7 +41,7 @@ func getOrdersFromFile(filePath string) []simulator.Order {
 
 		entry, _ := strconv.Atoi(orderData[0])
 		time, _ := strconv.Atoi(orderData[1])
-		orders = append(orders, simulator.Order{ID: id, Entry: entry, Time: time, Completion: time})
+		orders = append(orders, simulator.Order{ID: id, EntryTime: entry, RequiredTime: time, TimeLeftUntilCompletion: time})
 		id++
 	}
 

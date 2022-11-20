@@ -2,7 +2,6 @@ package simulator
 
 import (
 	"errors"
-	"math"
 )
 
 // CalculateAverage of a slice full of integers.
@@ -65,30 +64,9 @@ func GetIndexByOrderID(orderId int, orders []Order) (int, error) {
 func LowestTimeOrder(orders []Order) Order {
 	var minOrder = orders[0]
 	for _, value := range orders {
-		if minOrder.Time > value.Time {
+		if value.RequiredTime < minOrder.RequiredTime {
 			minOrder = value
 		}
 	}
 	return minOrder
-}
-
-func HighestPriorityOrder(orders []Order, overallTime int) Order {
-	returnOrder := orders[0]
-	var returnPrio float64 = 0
-	for _, order := range orders {
-		comparePrio := calcPriority(order, overallTime)
-		if comparePrio > returnPrio {
-			returnOrder = order
-			returnPrio = comparePrio
-		}
-	}
-	// log.Println(returnPrio, " required workload ", returnOrder.Time)
-	return returnOrder
-}
-
-func calcPriority(order Order, overallTime int) float64 {
-	// overall time 20 entry 5 orderTime 10
-	passedTime := overallTime - order.Entry
-	priority := float64(passedTime) / math.Pow(float64(order.Time), 6)
-	return priority
 }
